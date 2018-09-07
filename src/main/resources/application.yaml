@@ -1,6 +1,4 @@
 server:
   port: 8090
-  servlet:
-    context-path: /auth
 spring:
   mandatory-file-encoding: UTF-8
