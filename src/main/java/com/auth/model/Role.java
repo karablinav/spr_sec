@@ -1,13 +1,31 @@
 package com.auth.model;
 
-import org.springframework.security.core.GrantedAuthority;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public enum Role implements GrantedAuthority {
-    ADMIN,
-    USER;
+import javax.persistence.*;
 
-    @Override
-    public String getAuthority() {
-        return name();
-    }
+@Table(name = "role")
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_STORE_ROLES")
+    @SequenceGenerator(
+            name = "SEQ_STORE_ROLES",
+            sequenceName = "role_id_seq",
+            initialValue = 5,
+            allocationSize = 1
+    )
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
 }

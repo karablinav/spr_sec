@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Table(name = "users")
 @Entity
@@ -15,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class User {
 
     @Id
     @Column(name = "id")
@@ -34,18 +33,19 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ElementCollection(targetClass = Role.class)
-    @Enumerated(EnumType.STRING)
-    @Column(length = 15)
-    private List<Role> authorities;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> authorities;
 
-    @Column(name = "accountNonExpired")
+    @Column(name = "account_non_expired")
     private boolean accountNonExpired;
 
-    @Column(name = "accountNonLocked")
+    @Column(name = "account_non_locked")
     private boolean accountNonLocked;
 
-    @Column(name = "credentialsNonExpired")
+    @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired;
 
     @Column(name = "enabled")
