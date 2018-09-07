@@ -1,6 +1,5 @@
 package com.auth.security;
 
-import com.auth.persistence.UserDao;
 import com.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

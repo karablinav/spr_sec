@@ -1,4 +1,15 @@
 server:
   port: 8090
 spring:
+  flyway:
+    enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
   mandatory-file-encoding: UTF-8
+  jpa:
+    show-sql: true
+
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
